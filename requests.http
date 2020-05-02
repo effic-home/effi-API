@@ -1,0 +1,108 @@
+##############################################################
+#######              CONNEXION/INSCRIPTION             #######
+##############################################################
+
+### GET Connexion
+GET http://localhost:10000/connexion?email=cyndie@gmail.com&password=cyndie
+
+### POST Inscription
+POST http://localhost:10000/inscription
+Content-Type: application/json
+
+{
+  "nom": "Bernezet",
+  "prenom": "Julien",
+  "email": "julien@gmail.com",
+  "password": "julien",
+  "id_puce": 2,
+  "id_type": null,
+  "id_classe": null
+}
+
+##############################################################
+#######                      USERS                     #######
+##############################################################
+
+### GET Tous les utilisateurs
+GET http://localhost:10000/users
+
+### GET Détails d'un utilisateur
+GET http://localhost:10000/users/1
+
+### POST Modification d'un utilisateur
+POST http://localhost:10000/users/1
+Content-Type: application/json
+
+{
+  "nom": "Lefebvre",
+  "prenom": "Cyndie",
+  "email": "cyndie@gmail.com",
+  "password": "cyndie",
+  "id_puce": 12,
+  "id_type": null,
+  "id_classe": null
+}
+
+### DELETE Suppression d'un utilisateur
+DELETE http://localhost:10000/users/3
+
+##############################################################
+#######                      TYPES                     #######
+##############################################################
+
+### GET Tous les utilisateurs
+GET http://localhost:10000/types
+
+### GET Info d'un utilisateur
+GET http://localhost:10000/types/1
+
+### POST Création d'un type
+POST http://localhost:10000/types
+Content-Type: application/json
+
+{
+  "nom": "Prof"
+}
+
+### POST Modification d'un type
+POST http://localhost:10000/types/1
+Content-Type: application/json
+
+{
+  "nom": "Admin"
+}
+
+### DELETE Suppression d'un type
+DELETE http://localhost:10000/types/2
+
+
+##############################################################
+#######                     CLASSES                    #######
+##############################################################
+
+### GET Toutes les classes
+GET http://localhost:10000/classes
+
+### POST Création d'une classe
+POST http://localhost:10000/classes
+Content-Type: application/json
+
+{
+  "nom": "19-20_CSIA",
+  "effectif": 32
+}
+
+### GET Info d'une classe
+GET http://localhost:10000/classes/2
+
+### POST Modification d'une classe
+POST http://localhost:10000/classes/2
+Content-Type: application/json
+
+{
+  "nom": "1920_CSIA",
+  "effectif": 33
+}
+
+### DELETE Suppression d'une classe
+DELETE http://localhost:10000/classes/2

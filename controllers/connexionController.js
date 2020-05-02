@@ -1,0 +1,35 @@
+var sql = require("../db/connexion");
+
+exports.connexion = function(req, res) {
+    var requete = "SELECT * FROM users WHERE email = '" + req.query.email + "' AND password = '" + req.query.password + "'";
+
+    sql.query(requete, function (error, results) {
+        if(error) {
+            console.log("error: ", error);
+            res.send(error);
+        } else {
+            if(results == "") {
+                res.status(400).send({ error:true, message: "Sorry there are no users with these informations" });
+            } else {
+                res.status(200).send({ error: false, message: "Welcome" });
+            }
+        }
+    });
+};
+
+exports.inscription = function(req, res) {
+    var requete = "INSERT INTO users SET ?";
+
+    sql.query(requete, req.body, function (error, results) {
+        if(error) {
+            console.log("error: ", error);
+            res.send(error);
+        } else {
+            if(results.affectedRows == 0) {
+                res.status(400).send({ error:true, message: "Sorry we can't create this user" });
+            } else {
+                res.send(results);
+            }
+        }
+    });
+};
