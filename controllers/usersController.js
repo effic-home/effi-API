@@ -7,12 +7,12 @@ exports.getAllUsers = function(req, res) {
     sql.query(requete, function (error, results) {
         if(error) {
             console.log("error: ", error);
-            res.send(error);
+            res.status(400).send(error);
         } else {
             if(results == "") {
-                res.status(400).send({ error:true, message: "Sorry there are no users" });
+                res.status(500).send({ error:true, message: "Sorry there are no users" });
             } else {
-                res.send(results);
+                res.status(200).send(results);
             }
         }
     });
@@ -27,10 +27,10 @@ exports.getInfoUser = function(req, res) {
     sql.query(requete, function (error, results) {
         if(error) {
             console.log("error: ", error);
-            res.send(error);
+            res.status(400).send(error);
         } else {
             if(results == "") {
-                res.status(400).send({ error:true, message: "Sorry there is no user" });
+                res.status(500).send({ error:true, message: "Sorry there is no user" });
             } else {
                 res.send(results);
             }
@@ -44,10 +44,10 @@ exports.updateUser = function(req, res) {
   sql.query(requete, req.body, function (error, results) {
       if(error) {
           console.log("error: ", error);
-          res.send(error);
+          res.status(400).send(error);
       } else {
           if(results.affectedRows == 0) {
-              res.status(400).send({ error:true, message: "Sorry we can't update this user" });
+              res.status(500).send({ error:true, message: "Sorry we can't update this user" });
           } else {
               res.status(200).send({ error: false, message: "Updated" });
           }
@@ -61,10 +61,10 @@ exports.deleteUser = function(req, res) {
   sql.query(requete, function (error, results) {
       if(error) {
           console.log("error: ", error);
-          res.send(error);
+          res.status(400).send(error);
       } else {
           if(results.affectedRows == 0) {
-              res.status(400).send({ error:true, message: "Sorry we can't delete this user" });
+              res.status(500).send({ error:true, message: "Sorry we can't delete this user" });
           } else {
               res.status(200).send({ error: false, message: "Deleted" });
           }

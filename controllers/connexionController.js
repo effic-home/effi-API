@@ -6,12 +6,12 @@ exports.connexion = function(req, res) {
     sql.query(requete, function (error, results) {
         if(error) {
             console.log("error: ", error);
-            res.send(error);
+            res.status(400).send(error);
         } else {
             if(results == "") {
-                res.status(400).send({ error:true, message: "Sorry there are no users with these informations" });
+                res.status(500).send({ error:true, message: "Sorry there are no users with these informations" });
             } else {
-                res.status(200).send({ error: false, message: "Welcome" });
+                res.status(200).send();
             }
         }
     });
@@ -23,12 +23,12 @@ exports.inscription = function(req, res) {
     sql.query(requete, req.body, function (error, results) {
         if(error) {
             console.log("error: ", error);
-            res.send(error);
+            res.status(400).send(error);
         } else {
             if(results.affectedRows == 0) {
-                res.status(400).send({ error:true, message: "Sorry we can't create this user" });
+                res.status(500).send({ error:true, message: "Sorry we can't create this user" });
             } else {
-                res.send(results);
+                res.status(201).send();
             }
         }
     });
