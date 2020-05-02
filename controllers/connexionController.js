@@ -1,7 +1,7 @@
 var sql = require("../db/connexion");
 
 exports.connexion = function(req, res) {
-    var requete = "SELECT * FROM users WHERE email = '" + req.query.email + "' AND password = '" + req.query.password + "'";
+    var requete = "SELECT * FROM users WHERE email = '" + req.params.email + "' AND password = '" + req.params.password + "'";
 
     sql.query(requete, function (error, results) {
         if(error) {
