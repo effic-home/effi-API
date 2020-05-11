@@ -368,6 +368,116 @@ paths:
         - Classes
 
 
+  ##############################################################################
+  ###                                 SALLES                                 ###
+  ##############################################################################
+
+  '/salles':
+    get:
+      summary: Liste des salles
+      description: Retourne la liste de toutes les salles
+      responses:
+        '200':
+          description: Récupération des salles réussie
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ListSalleObject'
+        '400':
+          description: Erreur de requête
+        '500':
+          description: Aucune salle trouvée
+      tags:
+        - Salles
+
+    post:
+      summary: Création d'une salle
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/NewSalleObject'
+        required: true
+      responses:
+        '200':
+          description: Salle créée
+        '400':
+          description: Erreur de requête
+        '500':
+          description: Erreur lors de la création
+      tags:
+        - Salles
+
+  '/salles/{idSalle}':
+    get:
+      summary: Liste des détails d'une salle
+      description: Retourne la liste des détails d'une salle spécifiée
+      parameters:
+        - name: idSalle
+          in: path
+          description: ID de la salle spécifiée
+          required: true
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: Récupération des salles réussie
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SalleObject'
+        '400':
+          description: Erreur de requête
+        '500':
+          description: Aucune salle trouvée avec l'ID spécifié
+      tags:
+        - Salles
+
+    post:
+      summary: Mise à jour d'une classe spécifiée
+      parameters:
+        - name: idSalle
+          in: path
+          description: ID de la salle spécifiée
+          required: true
+          schema:
+            type: integer
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/NewSalleObject'
+        required: true
+      responses:
+        '200':
+          description: Salle mise à jour
+        '400':
+          description: Erreur de requête
+        '500':
+          description: Erreur lors de la mise à jour
+      tags:
+        - Salles
+
+    delete:
+      summary: Suppression d'une salle spécifiée
+      parameters:
+        - name: idSalle
+          in: path
+          description: ID de la salle spécifiée
+          required: true
+          schema:
+            type: integer
+      responses:
+        '201':
+          description: Salle supprimée
+        '400':
+          description: Erreur de requête
+        '500':
+          description: Erreur lors de la suppression
+      tags:
+        - Salles
+
+
 
 components:
   schemas:
@@ -472,3 +582,44 @@ components:
       type: array
       items:
         $ref: '#/components/schemas/ClasseObject'
+
+
+    ##############################################################################
+    ###                                 SALLES                                 ###
+    ##############################################################################
+
+    NewSalleObject:
+      type: object
+      properties:
+        numero_salle:
+          type: string
+        etage:
+          type: integer
+        type:
+          type: string
+        occupee:
+          type: integer
+        capacite:
+          type: integer
+
+    SalleObject:
+      type: object
+      properties:
+        id_classe:
+          type: integer
+        numero_salle:
+          type: string
+        etage:
+          type: integer
+        type:
+          type: string
+        occupee:
+          type: integer
+        capacite:
+          type: integer
+
+    ListSalleObject:
+      type: array
+      items:
+        $ref: '#/components/schemas/SalleObject'
+
