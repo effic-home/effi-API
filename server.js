@@ -26,11 +26,14 @@ app.use(bodyParser.json());
 var connexion = require('./routes/connexionRoute'); //importing route
 connexion(app); //register the route
 
-var users = require('./routes/usersRoute'); //importing route
-users(app); //register the route
+var users = require('./routes/usersRoute');
+users(app);
 
-var types = require('./routes/typesRoute'); //importing route
-types(app); //register the route
+var types = require('./routes/typesRoute');
+types(app);
 
-var classes = require('./routes/classeRoute'); //importing route
-classes(app); //register the route
+var classes = require('./routes/classeRoute');
+classes(app);
+
+var salles = require('./routes/sallesRoute');
+salles(app);
