@@ -106,3 +106,43 @@ Content-Type: application/json
 
 ### DELETE Suppression d'une classe
 DELETE http://localhost:10000/classes/2
+
+
+##############################################################
+#######                     SALLES                     #######
+##############################################################
+
+### GET Toutes les salles
+GET http://localhost:10000/salles
+
+### POST Création d'une classe
+POST http://localhost:10000/salles
+Content-Type: application/json
+
+{
+  "numero_salle": "205",
+  "etage": 0,
+  "type": "Informatique",
+  "occupee": 0,
+  "capacite": 25
+}
+
+### GET Info d'une salles
+GET http://localhost:10000/salles/2
+
+### POST Modification d'une salles
+POST http://localhost:10000/salles/2
+Content-Type: application/json
+
+{
+  "numero_salle": "205",
+  "etage": 0,
+  "type": "Informatique",
+  "occupee": 0,
+  "capacite": 20
+}
+
+### DELETE Suppression d'une salles
+DELETE http://localhost:10000/salles/2
+
+###
