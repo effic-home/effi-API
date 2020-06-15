@@ -1,0 +1,625 @@
+openapi: 3.0.0
+info:
+  description: |
+    Description des routes de l'API créée pour Eff-ID
+  version: "1.0.0-oas3"
+  title: Effi-API
+paths:
+
+  ##############################################################################
+  ###                          CONNEXION/INSCRIPTION                         ###
+  ##############################################################################
+
+  '/connexion/{email}/{password}':
+    get:
+      summary: Connexion d'un utilisateur
+      parameters:
+        - name: email
+          in: path
+          description: Email du compte associé
+          required: true
+          schema:
+            type: string
+        - name: password
+          in: path
+          description: Mot de passe du compte associé
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Compte et mot de passe concordants
+        '400':
+          description: Erreur de requête
+        '500':
+          description: Mauvais mot de passe ou email
+      tags:
+        - Connexion/Inscription
+
+  '/inscription':
+    post:
+      summary: Création d'un utilisateur
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/NewUserObject'
+        required: true
+      responses:
+        '201':
+          description: Utilisateur créé
+        '400':
+          description: Erreur de requête
+        '500':
+          description: Erreur lors de la création
+      tags:
+        - Connexion/Inscription
+
+
+    ##############################################################################
+    ###                                  USERS                                 ###
+    ##############################################################################
+
+  '/users':
+    get:
+      summary: Liste des utilisateurs
+      description: Retourne la liste de tous les utilisateurs
+      responses:
+        '200':
+          description: Récupération des utilisateurs réussie
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ListUserObject'
+        '400':
+          description: Erreur de requête
+        '500':
+          description: Aucun utilisateur trouvé
+      tags:
+        - Users
+
+  '/users/{idUser}':
+    get:
+      summary: Liste des détails d'un utilisateur
+      description: Retourne la liste des détails d'un utilisateur spécifié
+      parameters:
+        - name: idUser
+          in: path
+          description: ID de l'utilisateur spécifié
+          required: true
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UserObject'
+        '400':
+          description: Erreur de requête
+        '500':
+          description: Aucun utilisateur trouvé avec l'ID spécifié
+      tags:
+        - Users
+
+    post:
+      summary: Mise à jour d'un utilisateur
+      parameters:
+        - name: idUser
+          in: path
+          description: ID de l'utilisateur spécifié
+          required: true
+          schema:
+            type: integer
+      responses:
+        '201':
+          description: Utilisateur mis à jour
+        '400':
+          description: Erreur de requête
+        '500':
+          description: Erreur lors de la mise à jour
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/NewUserObject'
+        required: true
+      tags:
+        - Users
+
+    delete:
+      summary: Suppression d'un utilisateur
+      parameters:
+        - name: idUser
+          in: path
+          description: ID de l'utilisateur spécifié
+          required: true
+          schema:
+            type: integer
+      responses:
+        '201':
+          description: Utilisateur supprimé
+        '400':
+          description: Erreur de requête
+        '500':
+          description: Erreur lors de la suppression
+      tags:
+        - Users
+
+
+  ##############################################################################
+  ###                                  TYPES                                 ###
+  ##############################################################################
+
+  '/types':
+    get:
+      summary: Liste des types
+      description: Retourne la liste des différents types
+      responses:
+        '200':
+          description: Récupération des types réussie
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ListTypeObject'
+        '400':
+          description: Erreur de requête
+        '500':
+          description: Aucun type trouvé
+      tags:
+        - Types
+
+    post:
+      summary: Création d'un type
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/NewTypeObject'
+        required: true
+      responses:
+        '200':
+          description: Type créé
+        '400':
+          description: Erreur de requête
+        '500':
+          description: Erreur lors de la création
+      tags:
+        - Types
+
+  '/types/{idType}':
+    get:
+      summary: Liste des détails d'un type
+      description: Retourne la liste des détails d'un type spécifié
+      parameters:
+        - name: idType
+          in: path
+          description: ID du type spécifié
+          required: true
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: Récupération des détails réussie
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TypeObject'
+        '400':
+          description: Erreur de requête
+        '500':
+          description: Aucun type trouvé avec l'ID spécifié
+      tags:
+        - Types
+
+    post:
+      summary: Mise à jour d'un type spécifié
+      parameters:
+        - name: idType
+          in: path
+          description: ID du type spécifié
+          required: true
+          schema:
+            type: integer
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/NewTypeObject'
+        required: true
+      responses:
+        '200':
+          description: Type mis à jour
+        '400':
+          description: Erreur de requête
+        '500':
+          description: Erreur lors de la mise à jour
+      tags:
+        - Types
+
+    delete:
+      summary: Suppression d'un type spécifié
+      parameters:
+        - name: idType
+          in: path
+          description: ID du type spécifié
+          required: true
+          schema:
+            type: integer
+      responses:
+        '201':
+          description: Type supprimé
+        '400':
+          description: Erreur de requête
+        '500':
+          description: Erreur lors de la suppression
+      tags:
+        - Types
+
+
+  ##############################################################################
+  ###                                 CLASSES                                ###
+  ##############################################################################
+
+  '/classes':
+    get:
+      summary: Liste des classes
+      description: Retourne la liste de toutes les classes
+      responses:
+        '200':
+          description: Récupération des classes réussie
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ListClasseObject'
+        '400':
+          description: Erreur de requête
+        '500':
+          description: Aucune classe trouvée
+      tags:
+        - Classes
+
+    post:
+      summary: Création d'une classe
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/NewClasseObject'
+        required: true
+      responses:
+        '200':
+          description: Classe créée
+        '400':
+          description: Erreur de requête
+        '500':
+          description: Erreur lors de la création
+      tags:
+        - Classes
+
+  '/classes/{idClasse}':
+    get:
+      summary: Liste des détails d'une classe
+      description: Retourne la liste des détails d'une classe spécifiée
+      parameters:
+        - name: idClasse
+          in: path
+          description: ID de la classe spécifiée
+          required: true
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: Récupération des classes réussie
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ClasseObject'
+        '400':
+          description: Erreur de requête
+        '500':
+          description: Aucune classe trouvée avec l'ID spécifié
+      tags:
+        - Classes
+
+    post:
+      summary: Mise à jour d'une classe spécifiée
+      parameters:
+        - name: idClasse
+          in: path
+          description: ID de la classe spécifiée
+          required: true
+          schema:
+            type: integer
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/NewClasseObject'
+        required: true
+      responses:
+        '200':
+          description: Classe mise à jour
+        '400':
+          description: Erreur de requête
+        '500':
+          description: Erreur lors de la mise à jour
+      tags:
+        - Classes
+
+    delete:
+      summary: Suppression d'une classe spécifiée
+      parameters:
+        - name: idClasse
+          in: path
+          description: ID de la classe spécifiée
+          required: true
+          schema:
+            type: integer
+      responses:
+        '201':
+          description: Classe supprimée
+        '400':
+          description: Erreur de requête
+        '500':
+          description: Erreur lors de la suppression
+      tags:
+        - Classes
+
+
+  ##############################################################################
+  ###                                 SALLES                                 ###
+  ##############################################################################
+
+  '/salles':
+    get:
+      summary: Liste des salles
+      description: Retourne la liste de toutes les salles
+      responses:
+        '200':
+          description: Récupération des salles réussie
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ListSalleObject'
+        '400':
+          description: Erreur de requête
+        '500':
+          description: Aucune salle trouvée
+      tags:
+        - Salles
+
+    post:
+      summary: Création d'une salle
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/NewSalleObject'
+        required: true
+      responses:
+        '200':
+          description: Salle créée
+        '400':
+          description: Erreur de requête
+        '500':
+          description: Erreur lors de la création
+      tags:
+        - Salles
+
+  '/salles/{idSalle}':
+    get:
+      summary: Liste des détails d'une salle
+      description: Retourne la liste des détails d'une salle spécifiée
+      parameters:
+        - name: idSalle
+          in: path
+          description: ID de la salle spécifiée
+          required: true
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: Récupération des salles réussie
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SalleObject'
+        '400':
+          description: Erreur de requête
+        '500':
+          description: Aucune salle trouvée avec l'ID spécifié
+      tags:
+        - Salles
+
+    post:
+      summary: Mise à jour d'une classe spécifiée
+      parameters:
+        - name: idSalle
+          in: path
+          description: ID de la salle spécifiée
+          required: true
+          schema:
+            type: integer
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/NewSalleObject'
+        required: true
+      responses:
+        '200':
+          description: Salle mise à jour
+        '400':
+          description: Erreur de requête
+        '500':
+          description: Erreur lors de la mise à jour
+      tags:
+        - Salles
+
+    delete:
+      summary: Suppression d'une salle spécifiée
+      parameters:
+        - name: idSalle
+          in: path
+          description: ID de la salle spécifiée
+          required: true
+          schema:
+            type: integer
+      responses:
+        '201':
+          description: Salle supprimée
+        '400':
+          description: Erreur de requête
+        '500':
+          description: Erreur lors de la suppression
+      tags:
+        - Salles
+
+
+
+components:
+  schemas:
+
+    ##############################################################################
+    ###                                  USERS                                 ###
+    ##############################################################################
+
+    NewUserObject:
+      type: object
+      properties:
+        nom:
+          type: string
+        prenom:
+          type: string
+        email:
+          type: string
+        password:
+          type: string
+        id_puce:
+          type: integer
+        id_type:
+          type: integer
+          nullable: true
+        id_classe:
+          type: integer
+          nullable: true
+
+    UserObject:
+      type: object
+      properties:
+        id_user:
+          type: integer
+        nom:
+          type: string
+        prenom:
+          type: string
+        email:
+          type: string
+        id_puce:
+          type: integer
+        id_type:
+          type: integer
+        nom_classe:
+          type: string
+        effectif:
+          type: integer
+
+    ListUserObject:
+      type: array
+      items:
+        $ref: '#/components/schemas/UserObject'
+
+
+    ##############################################################################
+    ###                                  TYPES                                 ###
+    ##############################################################################
+
+    NewTypeObject:
+      type: object
+      properties:
+        nom:
+          type: string
+
+    TypeObject:
+      type: object
+      properties:
+        id_type:
+          type: integer
+        nom:
+          type: string
+
+    ListTypeObject:
+      type: array
+      items:
+        $ref: '#/components/schemas/TypeObject'
+
+
+    ##############################################################################
+    ###                                 CLASSES                                ###
+    ##############################################################################
+
+    NewClasseObject:
+      type: object
+      properties:
+        nom:
+          type: string
+        effectif:
+          type: integer
+
+    ClasseObject:
+      type: object
+      properties:
+        id_classe:
+          type: integer
+        nom:
+          type: string
+        effectif:
+          type: integer
+
+    ListClasseObject:
+      type: array
+      items:
+        $ref: '#/components/schemas/ClasseObject'
+
+
+    ##############################################################################
+    ###                                 SALLES                                 ###
+    ##############################################################################
+
+    NewSalleObject:
+      type: object
+      properties:
+        numero_salle:
+          type: string
+        etage:
+          type: integer
+        type:
+          type: string
+        occupee:
+          type: integer
+        capacite:
+          type: integer
+
+    SalleObject:
+      type: object
+      properties:
+        id_classe:
+          type: integer
+        numero_salle:
+          type: string
+        etage:
+          type: integer
+        type:
+          type: string
+        occupee:
+          type: integer
+        capacite:
+          type: integer
+
+    ListSalleObject:
+      type: array
+      items:
+        $ref: '#/components/schemas/SalleObject'
+
