@@ -9,4 +9,7 @@ module.exports = function(app) {
     .get(classe.getInfoClasse)
     .put(classe.updateClasse)
     .delete(classe.deleteClasse);
+  
+  app.route('/classes/users/:idClasse')
+    .get(classe.getAllUsersByClasse);
 };

@@ -107,6 +107,8 @@ Content-Type: application/json
 ### DELETE Suppression d'une classe
 DELETE http://localhost:10000/classes/2
 
+### GET Liste des élèves d'une classe
+GET http://localhost:10000/classes/users/1
 
 ##############################################################
 #######                     SALLES                     #######
