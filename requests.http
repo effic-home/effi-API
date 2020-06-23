@@ -150,3 +150,34 @@ DELETE http://localhost:10000/salles/2
 
 ### GET Liste des portes d'une salle
 GET http://localhost:10000/salles/portes/1
+
+##############################################################
+#######                     PORTES                     #######
+##############################################################
+
+### GET Toutes les portes
+GET http://localhost:10000/portes
+
+### POST Création d'une porte
+POST http://localhost:10000/portes
+Content-Type: application/json
+
+{
+  "numero_porte": 15,
+  "id_salle": 1
+}
+
+### GET Info d'une porte
+GET http://localhost:10000/portes/3
+
+### PUT Modification d'une porte
+PUT http://localhost:10000/portes/3
+Content-Type: application/json
+
+{
+  "numero_porte": 3,
+  "id_salle": 1
+}
+
+### DELETE Suppression d'une porte
+DELETE http://localhost:10000/portes/3

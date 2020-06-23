@@ -12,4 +12,13 @@ module.exports = function(app) {
 
     app.route('/salles/portes/:idSalle')
         .get(salles.getAllPortesBySalle);
+
+    app.route('/portes')
+        .get(salles.getAllPortes)
+        .post(salles.createPorte);
+
+    app.route('/portes/:idPorte')
+        .get(salles.getInfoPorte)
+        .put(salles.updatePorte)
+        .delete(salles.deletePorte);
 };
