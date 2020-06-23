@@ -83,3 +83,24 @@ exports.deleteSalle = function(req, res) {
         }
     });
 };
+
+exports.getAllPortesBySalle = function(req, res) {
+    var requete = "SELECT porte.id_porte, numero_porte, salle.numero_salle, salle.etage, salle.type, salle.occupee, salle.capacite FROM porte " +
+    "JOIN salle ON (salle.id_salle = porte.id_salle) " +
+    "WHERE salle.id_salle = " + req.params.idSalle;
+
+    sql.query(requete, function (error, results) {
+        if(error) {
+            console.log("error: ", error);
+            res.status(400).send(error);
+        } else {
+            if(results == "") {
+                res.status(500).send({ error:true, message: "Sorry there are no rooms" });
+            } else {
+                res.status(200).send(results);
+            }
+        }
+    });
+};
+
+

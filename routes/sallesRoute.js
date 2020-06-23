@@ -9,4 +9,7 @@ module.exports = function(app) {
         .get(salles.getInfoSalle)
         .put(salles.updateSalle)
         .delete(salles.deleteSalle);
+
+    app.route('/salles/portes/:idSalle')
+        .get(salles.getAllPortesBySalle);
 };

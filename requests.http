@@ -144,7 +144,9 @@ Content-Type: application/json
   "capacite": 20
 }
 
-### DELETE Suppression d'une salles
+### DELETE Suppression d'une salle
 DELETE http://localhost:10000/salles/2
 
-###
+
+### GET Liste des portes d'une salle
+GET http://localhost:10000/salles/portes/1
