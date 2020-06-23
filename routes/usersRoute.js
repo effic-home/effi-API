@@ -6,6 +6,6 @@ module.exports = function(app) {
 
   app.route("/users/:idUser")
     .get(users.getInfoUser)
-    .post(users.updateUser)
+    .put(users.updateUser)
     .delete(users.deleteUser);
 };

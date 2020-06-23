@@ -7,6 +7,6 @@ module.exports = function(app) {
 
   app.route('/classes/:idClasse')
     .get(classe.getInfoClasse)
-    .post(classe.updateClasse)
+    .put(classe.updateClasse)
     .delete(classe.deleteClasse);
 };

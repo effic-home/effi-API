@@ -7,6 +7,6 @@ module.exports = function(app) {
 
     app.route('/salles/:idSalle')
         .get(salles.getInfoSalle)
-        .post(salles.updateSalle)
+        .put(salles.updateSalle)
         .delete(salles.deleteSalle);
 };

@@ -30,7 +30,7 @@ GET http://localhost:10000/users
 GET http://localhost:10000/users/1
 
 ### POST Modification d'un utilisateur
-POST http://localhost:10000/users/1
+PUT http://localhost:10000/users/2
 Content-Type: application/json
 
 {
@@ -64,8 +64,8 @@ Content-Type: application/json
   "nom": "Prof"
 }
 
-### POST Modification d'un type
-POST http://localhost:10000/types/1
+### PUT Modification d'un type
+PUT http://localhost:10000/types/1
 Content-Type: application/json
 
 {
@@ -95,8 +95,8 @@ Content-Type: application/json
 ### GET Info d'une classe
 GET http://localhost:10000/classes/2
 
-### POST Modification d'une classe
-POST http://localhost:10000/classes/2
+### PUT Modification d'une classe
+PUT http://localhost:10000/classes/2
 Content-Type: application/json
 
 {
@@ -130,8 +130,8 @@ Content-Type: application/json
 ### GET Info d'une salles
 GET http://localhost:10000/salles/2
 
-### POST Modification d'une salles
-POST http://localhost:10000/salles/2
+### PUT Modification d'une salles
+PUT http://localhost:10000/salles/2
 Content-Type: application/json
 
 {
