@@ -10,12 +10,12 @@ POST http://localhost:10000/inscription
 Content-Type: application/json
 
 {
-  "nom": "Bernezet",
-  "prenom": "Julien",
-  "email": "julien@gmail.com",
-  "password": "julien",
+  "nom": "Poppé",
+  "prenom": "Christophe",
+  "email": "christophe@gmail.com",
+  "password": "christophe",
   "id_puce": 2,
-  "id_type": null,
+  "id_type": 1,
   "id_classe": null
 }
 
@@ -29,22 +29,25 @@ GET http://localhost:10000/users
 ### GET Détails d'un utilisateur
 GET http://localhost:10000/users/1
 
-### POST Modification d'un utilisateur
+### PUT Modification d'un utilisateur
 PUT http://localhost:10000/users/2
 Content-Type: application/json
 
 {
-  "nom": "Lefebvre",
-  "prenom": "Cyndie",
-  "email": "cyndie@gmail.com",
-  "password": "cyndie",
-  "id_puce": 12,
-  "id_type": null,
-  "id_classe": null
+  "nom": "Bernezet",
+  "prenom": "Julien",
+  "email": "julien@gmail.com",
+  "password": "julien",
+  "id_puce": 2,
+  "id_type": 2,
+  "id_classe": 1
 }
 
 ### DELETE Suppression d'un utilisateur
 DELETE http://localhost:10000/users/3
+
+### GET Liste utilisateurs selon le type
+GET http://localhost:10000/users/type/2
 
 ##############################################################
 #######                      TYPES                     #######

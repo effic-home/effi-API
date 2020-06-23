@@ -8,4 +8,7 @@ module.exports = function(app) {
     .get(users.getInfoUser)
     .put(users.updateUser)
     .delete(users.deleteUser);
+    
+  app.route('/users/type/:idType')
+  .get(users.getUsersByType);
 };
