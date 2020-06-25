@@ -10,12 +10,12 @@ POST http://localhost:10000/inscription
 Content-Type: application/json
 
 {
-  "nom": "Bernezet",
-  "prenom": "Julien",
-  "email": "julien@gmail.com",
-  "password": "julien",
+  "nom": "Poppé",
+  "prenom": "Christophe",
+  "email": "christophe@gmail.com",
+  "password": "christophe",
   "id_puce": 2,
-  "id_type": null,
+  "id_type": 1,
   "id_classe": null
 }
 
@@ -29,22 +29,25 @@ GET http://localhost:10000/users
 ### GET Détails d'un utilisateur
 GET http://localhost:10000/users/1
 
-### POST Modification d'un utilisateur
-POST http://localhost:10000/users/1
+### PUT Modification d'un utilisateur
+PUT http://localhost:10000/users/2
 Content-Type: application/json
 
 {
-  "nom": "Lefebvre",
-  "prenom": "Cyndie",
-  "email": "cyndie@gmail.com",
-  "password": "cyndie",
-  "id_puce": 12,
-  "id_type": null,
-  "id_classe": null
+  "nom": "Bernezet",
+  "prenom": "Julien",
+  "email": "julien@gmail.com",
+  "password": "julien",
+  "id_puce": 2,
+  "id_type": 2,
+  "id_classe": 1
 }
 
 ### DELETE Suppression d'un utilisateur
 DELETE http://localhost:10000/users/3
+
+### GET Liste utilisateurs selon le type
+GET http://localhost:10000/users/type/2
 
 ##############################################################
 #######                      TYPES                     #######
@@ -64,8 +67,8 @@ Content-Type: application/json
   "nom": "Prof"
 }
 
-### POST Modification d'un type
-POST http://localhost:10000/types/1
+### PUT Modification d'un type
+PUT http://localhost:10000/types/1
 Content-Type: application/json
 
 {
@@ -95,8 +98,8 @@ Content-Type: application/json
 ### GET Info d'une classe
 GET http://localhost:10000/classes/2
 
-### POST Modification d'une classe
-POST http://localhost:10000/classes/2
+### PUT Modification d'une classe
+PUT http://localhost:10000/classes/2
 Content-Type: application/json
 
 {
@@ -107,6 +110,8 @@ Content-Type: application/json
 ### DELETE Suppression d'une classe
 DELETE http://localhost:10000/classes/2
 
+### GET Liste des élèves d'une classe
+GET http://localhost:10000/classes/users/1
 
 ##############################################################
 #######                     SALLES                     #######
@@ -130,8 +135,8 @@ Content-Type: application/json
 ### GET Info d'une salles
 GET http://localhost:10000/salles/2
 
-### POST Modification d'une salles
-POST http://localhost:10000/salles/2
+### PUT Modification d'une salles
+PUT http://localhost:10000/salles/2
 Content-Type: application/json
 
 {
@@ -142,7 +147,40 @@ Content-Type: application/json
   "capacite": 20
 }
 
-### DELETE Suppression d'une salles
+### DELETE Suppression d'une salle
 DELETE http://localhost:10000/salles/2
 
-###
+
+### GET Liste des portes d'une salle
+GET http://localhost:10000/salles/portes/1
+
+##############################################################
+#######                     PORTES                     #######
+##############################################################
+
+### GET Toutes les portes
+GET http://localhost:10000/portes
+
+### POST Création d'une porte
+POST http://localhost:10000/portes
+Content-Type: application/json
+
+{
+  "numero_porte": 15,
+  "id_salle": 1
+}
+
+### GET Info d'une porte
+GET http://localhost:10000/portes/3
+
+### PUT Modification d'une porte
+PUT http://localhost:10000/portes/3
+Content-Type: application/json
+
+{
+  "numero_porte": 3,
+  "id_salle": 1
+}
+
+### DELETE Suppression d'une porte
+DELETE http://localhost:10000/portes/3

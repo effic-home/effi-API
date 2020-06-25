@@ -87,3 +87,25 @@ exports.deleteClasse = function(req, res) {
         }
     });
   };
+
+  exports.getAllUsersByClasse = function(req, res) {
+    var requete = "SELECT classe.nom as classe, users.nom, users.prenom, users.email, users.id_puce, type.nom as classe, classe.effectif FROM type " +
+    "JOIN users ON (users.id_type = type.id_type) " +
+    "JOIN classe ON (classe.id_classe = users.id_classe) " +
+    "WHERE classe.id_classe = " + req.params.idClasse;
+
+    sql.query(requete, function (error, results) {
+        if(error) {
+            console.log("error: ", error);
+            res.status(400).send(error);
+        } else {
+            if(results == "") {
+                res.status(500).send({ error:true, message: "Sorry there is no class" });
+            } else {
+                res.status(200).send(results);
+            }
+        }
+    });
+};
+
+  

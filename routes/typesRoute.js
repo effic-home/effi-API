@@ -7,7 +7,7 @@ module.exports = function(app) {
 
   app.route('/types/:idType')
     .get(types.getInfoType)
-    .post(types.updateType)
+    .put(types.updateType)
     .delete(types.deleteType);
 
 };

@@ -1,7 +1,8 @@
 var sql = require("../db/connexion");
 
 exports.getAllUsers = function(req, res) {
-    var requete = "SELECT id_user, users.nom as nom, prenom, email, id_puce, id_type, classe.nom as nom_classe, effectif FROM users "+
+    var requete = "SELECT id_user, users.nom as nom, prenom, email, id_puce, type.nom as type, classe.nom as nom_classe, effectif FROM users "+
+                  "JOIN type ON (users.id_type = type.id_type)"+
                   "LEFT JOIN classe ON (users.id_classe = classe.id_classe)";
 
     sql.query(requete, function (error, results) {
@@ -70,4 +71,24 @@ exports.deleteUser = function(req, res) {
           }
       }
   });
+};
+
+exports.getUsersByType = function(req, res) {
+    var requete = "SELECT type.nom as type, users.nom, users.prenom, users.email, users.id_puce, classe.nom as classe, classe.effectif FROM type " +
+    "JOIN users ON (users.id_type = type.id_type) " +
+    "LEFT JOIN classe ON (classe.id_classe = users.id_classe) " +
+    "WHERE type.id_type = " + req.params.idType;
+
+    sql.query(requete, function (error, results) {
+        if(error) {
+            console.log("error: ", error);
+            res.status(400).send(error);
+        } else {
+            if(results == "") {
+                res.status(500).send({ error:true, message: "Sorry there is no users in this type" });
+            } else {
+                res.status(200).send(results);
+            }
+        }
+    });
 };
