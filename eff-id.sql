@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Hôte : 127.0.0.1
--- Généré le :  lun. 24 fév. 2020 à 16:01
+-- Généré le :  jeu. 25 juin 2020 à 11:37
 -- Version du serveur :  10.1.31-MariaDB
 -- Version de PHP :  7.2.3
 
@@ -45,6 +45,13 @@ CREATE TABLE `classe` (
   `effectif` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
+--
+-- Déchargement des données de la table `classe`
+--
+
+INSERT INTO `classe` (`id_classe`, `nom`, `effectif`) VALUES
+(1, '19-20_CSIA', 32);
+
 -- --------------------------------------------------------
 
 --
@@ -56,6 +63,14 @@ CREATE TABLE `porte` (
   `numero_porte` int(11) NOT NULL,
   `id_salle` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Déchargement des données de la table `porte`
+--
+
+INSERT INTO `porte` (`id_porte`, `numero_porte`, `id_salle`) VALUES
+(1, 1, 1),
+(2, 2, 1);
 
 -- --------------------------------------------------------
 
@@ -90,6 +105,13 @@ CREATE TABLE `salle` (
   `capacite` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
+--
+-- Déchargement des données de la table `salle`
+--
+
+INSERT INTO `salle` (`id_salle`, `numero_salle`, `etage`, `type`, `occupee`, `capacite`) VALUES
+(1, '001', 0, 'Classique', 0, 28);
+
 -- --------------------------------------------------------
 
 --
@@ -98,8 +120,16 @@ CREATE TABLE `salle` (
 
 CREATE TABLE `type` (
   `id_type` int(11) NOT NULL,
-  `nom` int(11) NOT NULL
+  `nom` varchar(255) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Déchargement des données de la table `type`
+--
+
+INSERT INTO `type` (`id_type`, `nom`) VALUES
+(1, 'Admin'),
+(2, 'Etudiant');
 
 -- --------------------------------------------------------
 
@@ -111,10 +141,21 @@ CREATE TABLE `users` (
   `id_user` int(11) NOT NULL,
   `nom` varchar(255) NOT NULL,
   `prenom` varchar(255) NOT NULL,
+  `email` varchar(255) NOT NULL,
+  `password` varchar(255) DEFAULT NULL,
   `id_puce` int(11) NOT NULL,
-  `id_type` int(11) DEFAULT NULL,
+  `id_type` int(11) NOT NULL,
   `id_classe` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Déchargement des données de la table `users`
+--
+
+INSERT INTO `users` (`id_user`, `nom`, `prenom`, `email`, `password`, `id_puce`, `id_type`, `id_classe`) VALUES
+(1, 'Lefebvre', 'Cyndie', 'cyndie@gmail.com', 'cyndie', 12, 2, 1),
+(2, 'Bernezet', 'Julien', 'julien@gmail.com', 'julien', 2, 2, 1),
+(3, 'Poppé', 'Christophe', 'christophe@gmail.com', 'christophe', 2, 1, NULL);
 
 -- --------------------------------------------------------
 
@@ -180,9 +221,10 @@ ALTER TABLE `type`
 --
 ALTER TABLE `users`
   ADD PRIMARY KEY (`id_user`),
+  ADD UNIQUE KEY `email` (`email`),
   ADD KEY `id_classe` (`id_classe`),
-  ADD KEY `id_type` (`id_type`) USING BTREE,
-  ADD KEY `id_puce` (`id_puce`) USING BTREE;
+  ADD KEY `id_puce` (`id_puce`) USING BTREE,
+  ADD KEY `id_type` (`id_type`);
 
 --
 -- Index pour la table `validation`
@@ -200,13 +242,13 @@ ALTER TABLE `validation`
 -- AUTO_INCREMENT pour la table `classe`
 --
 ALTER TABLE `classe`
-  MODIFY `id_classe` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id_classe` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT pour la table `porte`
 --
 ALTER TABLE `porte`
-  MODIFY `id_porte` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id_porte` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT pour la table `reservation`
@@ -218,19 +260,19 @@ ALTER TABLE `reservation`
 -- AUTO_INCREMENT pour la table `salle`
 --
 ALTER TABLE `salle`
-  MODIFY `id_salle` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id_salle` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT pour la table `type`
 --
 ALTER TABLE `type`
-  MODIFY `id_type` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id_type` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT pour la table `users`
 --
 ALTER TABLE `users`
-  MODIFY `id_user` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id_user` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT pour la table `validation`
@@ -246,8 +288,8 @@ ALTER TABLE `validation`
 -- Contraintes pour la table `acces_salles`
 --
 ALTER TABLE `acces_salles`
-  ADD CONSTRAINT `acces_salles_ibfk_1` FOREIGN KEY (`id_type`) REFERENCES `type` (`id_type`),
-  ADD CONSTRAINT `acces_salles_ibfk_2` FOREIGN KEY (`id_salle`) REFERENCES `salle` (`id_salle`);
+  ADD CONSTRAINT `acces_salles_ibfk_2` FOREIGN KEY (`id_salle`) REFERENCES `salle` (`id_salle`),
+  ADD CONSTRAINT `acces_salles_ibfk_3` FOREIGN KEY (`id_type`) REFERENCES `type` (`id_type`);
 
 --
 -- Contraintes pour la table `porte`
