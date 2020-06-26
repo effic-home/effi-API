@@ -3,6 +3,8 @@ var mysql = require('mysql');
 var bodyParser = require('body-parser');
 var app = express();
 var port = 10000;
+var https = require('https');
+var fs = require('fs');
 
 app.use(express.json());
 app.use(function(req, res, next) {
@@ -16,12 +18,23 @@ app.use(function(req, res, next) {
     });
 });
 
-app.listen(port, () => {
+/*app.listen(port, () => {
   console.log('Serveur démarré');
-  });
+  });*/
+
+https.createServer({
+    key: fs.readFileSync('./key.pem'),
+    cert: fs.readFileSync('./cert.pem'),
+    passphrase: ''
+}, app)
+.listen(port);
 
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
+
+app.get('/', (req, res) => {
+  res.send('Welcome to Eff-ID API');
+});
 
 var connexion = require('./routes/connexionRoute'); //importing route
 connexion(app); //register the route
