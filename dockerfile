@@ -1,4 +1,5 @@
-FROM node:10
+# FROM node:10
+FROM arm32v7/node:10.21
 
 WORKDIR /usr/src/app
 COPY package*.json ./
