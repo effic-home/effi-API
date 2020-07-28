@@ -50,3 +50,6 @@ classes(app);
 
 var salles = require('./routes/sallesRoute');
 salles(app);
+
+var reservations = require('./routes/reservationRoute');
+reservations(app);

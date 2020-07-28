@@ -184,3 +184,42 @@ Content-Type: application/json
 
 ### DELETE Suppression d'une porte
 DELETE http://localhost:10000/portes/3
+
+##############################################################
+#######                   RESERVATION                  #######
+##############################################################
+
+### GET Toutes les réservations
+GET http://localhost:10000/reservations
+
+### POST Création d'une réservation
+POST http://localhost:10000/reservations
+Content-Type: application/json
+
+{
+  "id_user": 2,
+  "date": "2019-01-21",
+  "heure": "09:00",
+  "duree": 60,
+  "intitule": "Récré",
+  "nb_personnes": 2,
+  "id_salle": 1,
+  "id_prof": 1
+}
+
+### GET Info d'une réservation
+GET http://localhost:10000/reservations/1
+
+### PUT Modification d'une réservation
+PUT http://localhost:10000/reservations/2
+Content-Type: application/json
+
+{
+  "duree": "00:10:00",
+  "intitule": "Conv entre meufs",
+  "nb_personnes": 3
+}
+
+### DELETE Suppression d'une réservation
+DELETE http://localhost:10000/reservations/2
+
