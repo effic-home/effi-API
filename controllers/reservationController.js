@@ -101,11 +101,16 @@ exports.deleteReservation = function(req, res) {
     });
 };
 
-/*exports.getAllUsersByReservation = function(req, res) {
-    var requete = "SELECT classe.nom as classe, users.nom, users.prenom, users.email, users.id_puce, type.nom as classe, classe.effectif FROM type " +
-        "JOIN users ON (users.id_type = type.id_type) " +
-        "JOIN classe ON (classe.id_classe = users.id_classe) " +
-        "WHERE classe.id_classe = " + req.params.idClasse;
+exports.getAllReservationsBySalle = function(req, res) {
+    var requete = "SELECT resa.id_reservation, users.nom, users.prenom, date, heure, duree, intitule, nb_personnes, salle.numero_salle, prof.nom as nom_prof,\n"+
+        " validation.etat as etat_validation \n" +
+        "FROM reservation as resa\n" +
+        "JOIN users ON (users.id_user = resa.id_user)\n" +
+        "JOIN salle ON (salle.id_salle = resa.id_salle)\n" +
+        "LEFT JOIN users as prof ON (prof.id_user = resa.id_prof)\n" +
+        "LEFT JOIN validation ON (validation.id_validation = resa.id_validation)\n"+
+        "WHERE resa.id_salle = "+ req.params.idSalle +
+        " ORDER BY resa.date DESC";
 
     sql.query(requete, function (error, results) {
         if(error) {
@@ -119,5 +124,31 @@ exports.deleteReservation = function(req, res) {
             }
         }
     });
-};*/
+};
 
+
+
+exports.getAllReservationsByUser = function(req, res) {
+    var requete = "SELECT resa.id_reservation, users.nom, users.prenom, date, heure, duree, intitule, nb_personnes, salle.numero_salle, prof.nom as nom_prof,\n"+
+        " validation.etat as etat_validation \n" +
+        "FROM reservation as resa\n" +
+        "JOIN users ON (users.id_user = resa.id_user)\n" +
+        "JOIN salle ON (salle.id_salle = resa.id_salle)\n" +
+        "LEFT JOIN users as prof ON (prof.id_user = resa.id_prof)\n" +
+        "LEFT JOIN validation ON (validation.id_validation = resa.id_validation)\n"+
+        "WHERE resa.id_user = "+ req.params.idUser +
+        " ORDER BY resa.date DESC";
+
+    sql.query(requete, function (error, results) {
+        if(error) {
+            console.log("error: ", error);
+            res.status(400).send(error);
+        } else {
+            if(results == "") {
+                res.status(500).send({ error:true, message: "Sorry there is no class" });
+            } else {
+                res.status(200).send(results);
+            }
+        }
+    });
+};

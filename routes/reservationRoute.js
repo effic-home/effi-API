@@ -10,6 +10,9 @@ module.exports = function(app) {
         .put(reservation.updateReservation)
         .delete(reservation.deleteReservation);
 
-    /*app.route('/reservations/users/:idReservation')
-        .get(reservation.getAllUsersByReservation);*/
+    app.route('/reservations/salle/:idSalle')
+        .get(reservation.getAllReservationsBySalle);
+
+    app.route('/reservations/user/:idUser')
+        .get(reservation.getAllReservationsByUser);
 };
