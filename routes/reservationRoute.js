@@ -18,4 +18,9 @@ module.exports = function(app) {
 
     app.route('/reservations/user/:idUser')
         .get(reservation.getAllReservationsByUser);
+
+    app.route('/reservations/validation/:idReservation')
+        .post(reservation.createValidation);
+
+
 };

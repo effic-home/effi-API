@@ -223,3 +223,41 @@ Content-Type: application/json
 ### DELETE Suppression d'une réservation
 DELETE http://localhost:10000/reservations/2
 
+
+### GET Réservations non validées
+GET http://localhost:10000/reservations/attente
+
+### POST Validation réservation
+POST http://localhost:10000/reservations/validation/2
+Content-Type: application/json
+
+{
+  "etat": 0,
+  "id_user": 2
+}
+
+### GET All validations
+GET http://localhost:10000/validations
+
+### GET Info d'une validation
+GET http://localhost:10000/validations/17
+
+### PUT Modification d'une validation
+PUT http://localhost:10000/validations/17
+Content-Type: application/json
+
+{
+  "etat": 0
+}
+
+### DELETE Suppression d'une validation
+DELETE http://localhost:10000/validations/2
+
+### GET Validations by user
+GET http://localhost:10000/validations/user/1
+
+### GET Validations by status
+
+GET http://localhost:10000/validations/status/1
+
+###

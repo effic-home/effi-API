@@ -53,3 +53,6 @@ salles(app);
 
 var reservations = require('./routes/reservationRoute');
 reservations(app);
+
+var validation = require('./routes/validationRoute');
+validation(app);
