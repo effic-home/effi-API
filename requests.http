@@ -184,3 +184,83 @@ Content-Type: application/json
 
 ### DELETE Suppression d'une porte
 DELETE http://localhost:10000/portes/3
+
+##############################################################
+#######                   RESERVATION                  #######
+##############################################################
+
+### GET Toutes les réservations
+GET http://localhost:10000/reservations
+
+### POST Création d'une réservation
+POST http://localhost:10000/reservations
+Content-Type: application/json
+
+{
+  "id_user": 2,
+  "date": "2019-01-21",
+  "heure_debut": "09:00",
+  "heure_fin": "10:00",
+  "intitule": "Récré",
+  "nb_personnes": 2,
+  "id_salle": 1,
+  "id_prof": 1
+}
+
+### GET Info d'une réservation
+GET http://localhost:10000/reservations/1
+
+### PUT Modification d'une réservation
+PUT http://localhost:10000/reservations/2
+Content-Type: application/json
+
+{
+  "heure_fin": "17:10:00",
+  "intitule": "Conv entre meufs",
+  "nb_personnes": 3
+}
+
+### DELETE Suppression d'une réservation
+DELETE http://localhost:10000/reservations/2
+
+
+### GET Réservations non validées
+GET http://localhost:10000/reservations/attente
+
+### POST Validation réservation
+POST http://localhost:10000/reservations/validation/2
+Content-Type: application/json
+
+{
+  "etat": 0,
+  "id_user": 2
+}
+
+### GET All validations
+GET http://localhost:10000/validations
+
+### GET Info d'une validation
+GET http://localhost:10000/validations/17
+
+### PUT Modification d'une validation
+PUT http://localhost:10000/validations/17
+Content-Type: application/json
+
+{
+  "etat": 0
+}
+
+### DELETE Suppression d'une validation
+DELETE http://localhost:10000/validations/2
+
+### GET Validations by user
+GET http://localhost:10000/validations/user/1
+
+### GET Validations by status
+
+GET http://localhost:10000/validations/status/1
+
+### GET Accès aux salles selon validation
+GET http://localhost:10000/acces/1/2
+
+###
