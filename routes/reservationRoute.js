@@ -5,6 +5,9 @@ module.exports = function(app) {
         .get(reservation.getAllReservations)
         .post(reservation.createReservation);
 
+    app.route('/reservations/attente')
+        .get(reservation.getReservationsEnAttente);
+
     app.route('/reservations/:idReservation')
         .get(reservation.getInfoReservation)
         .put(reservation.updateReservation)
