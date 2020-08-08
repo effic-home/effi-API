@@ -1,7 +1,7 @@
 var sql = require("../db/connexion");
 
 exports.getAllReservations = function(req, res) {
-    var requete = "SELECT resa.id_reservation, users.nom, users.prenom, date, heure, duree, intitule, nb_personnes, salle.numero_salle, prof.nom as nom_prof,\n"+
+    var requete = "SELECT resa.id_reservation, users.nom, users.prenom, date, heure_debut, heure_fin, intitule, nb_personnes, salle.numero_salle, prof.nom as nom_prof,\n"+
         " validation.etat as etat_validation \n" +
         "FROM reservation as resa\n" +
         "JOIN users ON (users.id_user = resa.id_user)\n" +
@@ -43,7 +43,7 @@ exports.createReservation = function(req, res) {
 
 
 exports.getInfoReservation = function(req, res) {
-    var requete = "SELECT resa.id_reservation, users.nom, users.prenom, date, heure, duree, intitule, nb_personnes, salle.numero_salle, prof.nom as nom_prof,\n"+
+    var requete = "SELECT resa.id_reservation, users.nom, users.prenom, date, heure_debut, heure_fin, intitule, nb_personnes, salle.numero_salle, prof.nom as nom_prof,\n"+
         " validation.etat as etat_validation \n" +
         "FROM reservation as resa\n" +
         "JOIN users ON (users.id_user = resa.id_user)\n" +
@@ -102,7 +102,7 @@ exports.deleteReservation = function(req, res) {
 };
 
 exports.getAllReservationsBySalle = function(req, res) {
-    var requete = "SELECT resa.id_reservation, users.nom, users.prenom, date, heure, duree, intitule, nb_personnes, salle.numero_salle, prof.nom as nom_prof,\n"+
+    var requete = "SELECT resa.id_reservation, users.nom, users.prenom, date, heure_debut, heure_fin, intitule, nb_personnes, salle.numero_salle, prof.nom as nom_prof,\n"+
         " validation.etat as etat_validation \n" +
         "FROM reservation as resa\n" +
         "JOIN users ON (users.id_user = resa.id_user)\n" +
@@ -127,7 +127,7 @@ exports.getAllReservationsBySalle = function(req, res) {
 };
 
 exports.getAllReservationsByUser = function(req, res) {
-    var requete = "SELECT resa.id_reservation, users.nom, users.prenom, date, heure, duree, intitule, nb_personnes, salle.numero_salle, prof.nom as nom_prof,\n"+
+    var requete = "SELECT resa.id_reservation, users.nom, users.prenom, date, heure_debut, heure_fin, intitule, nb_personnes, salle.numero_salle, prof.nom as nom_prof,\n"+
         " validation.etat as etat_validation \n" +
         "FROM reservation as resa\n" +
         "JOIN users ON (users.id_user = resa.id_user)\n" +
@@ -152,7 +152,7 @@ exports.getAllReservationsByUser = function(req, res) {
 };
 
 exports.getReservationsEnAttente = function(req, res) {
-    var requete = "SELECT resa.id_reservation, users.nom, users.prenom, date, heure, duree, intitule, nb_personnes, salle.numero_salle, prof.nom as nom_prof,\n"+
+    var requete = "SELECT resa.id_reservation, users.nom, users.prenom, date, heure_debut, heure_fin, intitule, nb_personnes, salle.numero_salle, prof.nom as nom_prof,\n"+
         " validation.etat as etat_validation\n" +
         "FROM reservation as resa\n" +
         "JOIN users ON (users.id_user = resa.id_user)\n" +

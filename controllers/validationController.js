@@ -1,7 +1,7 @@
 var sql = require("../db/connexion");
 
 exports.getAllValidations = function(req, res) {
-    var requete = "SELECT vali.id_validation, resa.id_reservation, vali.etat, validateur.nom as nom_validateur, validateur.prenom as prenom_validateur, eleve.nom as nom_demandeur, eleve.prenom as prenom_demandeur, date, heure, duree, intitule, nb_personnes, salle.numero_salle, prof.nom as nom_prof " +
+    var requete = "SELECT vali.id_validation, resa.id_reservation, vali.etat, validateur.nom as nom_validateur, validateur.prenom as prenom_validateur, eleve.nom as nom_demandeur, eleve.prenom as prenom_demandeur, date, heure_debut, heure_fin, intitule, nb_personnes, salle.numero_salle, prof.nom as nom_prof " +
         "FROM validation as vali " +
         "JOIN reservation as resa ON (vali.id_reservation = resa.id_reservation) " +
         "JOIN users as validateur ON (vali.id_user = validateur.id_user) " +
@@ -25,7 +25,7 @@ exports.getAllValidations = function(req, res) {
 };
 
 exports.getInfoValidation = function(req, res) {
-    var requete = "SELECT vali.id_validation, resa.id_reservation, vali.etat, validateur.nom as nom_validateur, validateur.prenom as prenom_validateur, eleve.nom as nom_demandeur, eleve.prenom as prenom_demandeur, date, heure, duree, intitule, nb_personnes, salle.numero_salle, prof.nom as nom_prof " +
+    var requete = "SELECT vali.id_validation, resa.id_reservation, vali.etat, validateur.nom as nom_validateur, validateur.prenom as prenom_validateur, eleve.nom as nom_demandeur, eleve.prenom as prenom_demandeur, date, heure_debut, heure_fin, intitule, nb_personnes, salle.numero_salle, prof.nom as nom_prof " +
         "FROM validation as vali " +
         "JOIN reservation as resa ON (vali.id_reservation = resa.id_reservation) " +
         "JOIN users as validateur ON (vali.id_user = validateur.id_user) " +
@@ -84,7 +84,7 @@ exports.deleteValidation = function(req, res) {
     });
 };
 exports.getAllValidationsByUser = function(req, res) {
-    var requete = "SELECT vali.id_validation, resa.id_reservation, vali.etat, validateur.nom as nom_validateur, validateur.prenom as prenom_validateur, eleve.nom as nom_demandeur, eleve.prenom as prenom_demandeur, date, heure, duree, intitule, nb_personnes, salle.numero_salle, prof.nom as nom_prof " +
+    var requete = "SELECT vali.id_validation, resa.id_reservation, vali.etat, validateur.nom as nom_validateur, validateur.prenom as prenom_validateur, eleve.nom as nom_demandeur, eleve.prenom as prenom_demandeur, date, heure_debut, heure_fin, intitule, nb_personnes, salle.numero_salle, prof.nom as nom_prof " +
         "FROM validation as vali " +
         "JOIN reservation as resa ON (vali.id_reservation = resa.id_reservation) " +
         "JOIN users as validateur ON (vali.id_user = validateur.id_user) " +
@@ -110,7 +110,7 @@ exports.getAllValidationsByUser = function(req, res) {
 
 
 exports.getAllReservationsByStatus = function(req, res) {
-    var requete = "SELECT vali.id_validation, resa.id_reservation, vali.etat, validateur.nom as nom_validateur, validateur.prenom as prenom_validateur, eleve.nom as nom_demandeur, eleve.prenom as prenom_demandeur, date, heure, duree, intitule, nb_personnes, salle.numero_salle, prof.nom as nom_prof " +
+    var requete = "SELECT vali.id_validation, resa.id_reservation, vali.etat, validateur.nom as nom_validateur, validateur.prenom as prenom_validateur, eleve.nom as nom_demandeur, eleve.prenom as prenom_demandeur, date, heure_debut, heure_fin, intitule, nb_personnes, salle.numero_salle, prof.nom as nom_prof " +
         "FROM validation as vali " +
         "JOIN reservation as resa ON (vali.id_reservation = resa.id_reservation) " +
         "JOIN users as validateur ON (vali.id_user = validateur.id_user) " +
