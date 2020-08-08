@@ -199,8 +199,8 @@ Content-Type: application/json
 {
   "id_user": 2,
   "date": "2019-01-21",
-  "heure": "09:00",
-  "duree": 60,
+  "heure_debut": "09:00",
+  "heure_fin": "10:00",
   "intitule": "Récré",
   "nb_personnes": 2,
   "id_salle": 1,
@@ -215,7 +215,7 @@ PUT http://localhost:10000/reservations/2
 Content-Type: application/json
 
 {
-  "duree": "00:10:00",
+  "heure_fin": "17:10:00",
   "intitule": "Conv entre meufs",
   "nb_personnes": 3
 }
@@ -259,5 +259,8 @@ GET http://localhost:10000/validations/user/1
 ### GET Validations by status
 
 GET http://localhost:10000/validations/status/1
+
+### GET Accès aux salles selon validation
+GET http://localhost:10000/acces/1/2
 
 ###

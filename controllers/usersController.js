@@ -92,3 +92,28 @@ exports.getUsersByType = function(req, res) {
         }
     });
 };
+
+exports.accesSalle = function(req, res) {
+    var requete = "SELECT * " +
+        "FROM reservation " +
+        "JOIN validation ON (reservation.id_validation = validation.id_validation) " +
+        "WHERE validation.etat = 1 " +
+        "AND reservation.id_user = " + req.params.idUser +
+        " AND reservation.id_salle = " + req.params.idSalle +
+        " AND reservation.date = DATE(NOW()) " +
+        "AND reservation.heure_debut <= TIME(NOW()) " +
+        "AND reservation.heure_fin >= TIME(NOW())";
+
+    sql.query(requete, function (error, results) {
+        if(error) {
+            console.log("error: ", error);
+            res.status(400).send(error);
+        } else {
+            if(results == "") {
+                res.status(500).send({result: false});
+            } else {
+                res.status(200).send({result: true});
+            }
+        }
+    });
+};
