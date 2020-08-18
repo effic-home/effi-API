@@ -20,9 +20,9 @@ exports.getAllUsers = function(req, res) {
 };
 
 exports.getInfoUser = function(req, res) {
-    var requete = "SELECT id_user, users.nom as nom, prenom, email, password, id_puce, id_type, classe.nom as nom_classe, effectif "+
+    var requete = "SELECT id_user, users.nom as nom, prenom, email, id_puce, id_type, classe.nom as nom_classe, effectif "+
                   "FROM users "+
-                  "JOIN classe ON (classe.id_classe = users.id_classe) "+
+                  "LEFT JOIN classe ON (classe.id_classe = users.id_classe) "+
                   "WHERE id_user = " + req.params.idUser;
 
     sql.query(requete, function (error, results) {
