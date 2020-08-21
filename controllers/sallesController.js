@@ -58,7 +58,7 @@ exports.getSallesDisposNow = function(req, res) {
 };
 
 exports.getSallesReserveesByDate = function(req, res) {
-    var requete = "SELECT salle.id_salle, numero_salle, etage, type, occupee, capacite " +
+    var requete = "SELECT salle.id_salle, numero_salle, etage, type, occupee, capacite, reservation.id_reservation, reservation.date, reservation.heure_debut, reservation.heure_fin, reservation.intitule, reservation.id_user " +
         "FROM reservation " +
         "JOIN salle ON (reservation.id_salle = salle.id_salle) " +
         "WHERE reservation.date = '" + req.params.date + "'";
@@ -69,7 +69,7 @@ exports.getSallesReserveesByDate = function(req, res) {
             res.status(400).send(error);
         } else {
             if(results.affectedRows == 0) {
-                res.status(500).send({ error:true, message: "Sorry there are no available rooms now" });
+                res.status(500).send({ error:true, message: "Sorry there are no reservations at this date" });
             } else {
                 res.status(200).send(results);
             }
