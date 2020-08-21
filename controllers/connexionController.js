@@ -1,7 +1,11 @@
 var sql = require("../db/connexion");
 
 exports.connexion = function(req, res) {
-    var requete = "SELECT * FROM users WHERE email = '" + req.params.email + "' AND password = '" + req.params.password + "'";
+    var requete = "SELECT id_user, users.nom, users.prenom, email, id_puce, type.nom as type, classe.nom as classe " +
+        "FROM users " +
+        "JOIN type ON (type.id_type = users.id_type) " +
+        "LEFT JOIN classe ON (classe.id_classe = users.id_classe) " +
+        "WHERE email = '" + req.params.email + "' AND password = '" + req.params.password + "'";
 
     sql.query(requete, function (error, results) {
         if(error) {
@@ -11,7 +15,7 @@ exports.connexion = function(req, res) {
             if(results == "") {
                 res.status(500).send({ error:true, message: "Sorry there are no users with these informations" });
             } else {
-                res.status(200).send();
+                res.status(200).send(results);
             }
         }
     });
