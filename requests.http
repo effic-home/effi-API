@@ -263,4 +263,10 @@ GET http://localhost:10000/validations/status/1
 ### GET Accès aux salles selon validation
 GET http://localhost:10000/acces/1/2
 
+### GET Salles dispo actuellement
+GET http://localhost:10000/salles/dispoNow
+
+### GET Salles réservées à telle date
+GET http://localhost:10000/salles/reservees/2020-08-21
+
 ###

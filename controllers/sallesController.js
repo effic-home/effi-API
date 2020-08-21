@@ -34,6 +34,49 @@ exports.createSalle = function(req, res) {
     });
 };
 
+exports.getSallesDisposNow = function(req, res) {
+    var requete = "SELECT id_salle, numero_salle, etage, type, occupee, capacite " +
+    "FROM salle WHERE id_salle NOT IN ( " +
+    "SELECT id_salle " +
+    "FROM reservation " +
+    "WHERE reservation.date = DATE(NOW()) " +
+    "AND reservation.heure_debut <= TIME(NOW()) " +
+    "AND reservation.heure_fin >= TIME(NOW()))";
+
+    sql.query(requete, req.body, function (error, results) {
+        if(error) {
+            console.log("error: ", error);
+            res.status(400).send(error);
+        } else {
+            if(results.affectedRows == 0) {
+                res.status(500).send({ error:true, message: "Sorry there are no available rooms now" });
+            } else {
+                res.status(200).send(results);
+            }
+        }
+    });
+};
+
+exports.getSallesReserveesByDate = function(req, res) {
+    var requete = "SELECT salle.id_salle, numero_salle, etage, type, occupee, capacite " +
+        "FROM reservation " +
+        "JOIN salle ON (reservation.id_salle = salle.id_salle) " +
+        "WHERE reservation.date = '" + req.params.date + "'";
+
+    sql.query(requete, req.body, function (error, results) {
+        if(error) {
+            console.log("error: ", error);
+            res.status(400).send(error);
+        } else {
+            if(results.affectedRows == 0) {
+                res.status(500).send({ error:true, message: "Sorry there are no available rooms now" });
+            } else {
+                res.status(200).send(results);
+            }
+        }
+    });
+};
+
 exports.getInfoSalle = function(req, res) {
     var requete = "SELECT * FROM salle WHERE id_salle = " + req.params.idSalle;
 
