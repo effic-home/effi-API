@@ -5,8 +5,8 @@ module.exports = function(app) {
         .get(salles.getAllSalles)
         .post(salles.createSalle);
 
-    /*app.route('/salles/:date')
-        .get(salles.getSallesDisposByDate);*/
+    app.route('/salles/reservees/:date')
+        .get(salles.getSallesReserveesByDate);
 
     app.route('/salles/dispoNow')
         .get(salles.getSallesDisposNow);
