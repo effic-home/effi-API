@@ -1,7 +1,7 @@
 var sql = require("../db/connexion");
 
 exports.connexion = function(req, res) {
-    var requete = "SELECT id_user, users.nom, users.prenom, email, id_puce, type.nom as type, classe.nom as classe " +
+    var requete = "SELECT id_user, users.nom, users.prenom, email, id_puce, type.nom as type, classe.nom as nom_classe, classe.effectif " +
         "FROM users " +
         "JOIN type ON (type.id_type = users.id_type) " +
         "LEFT JOIN classe ON (classe.id_classe = users.id_classe) " +
