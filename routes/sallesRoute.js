@@ -5,6 +5,12 @@ module.exports = function(app) {
         .get(salles.getAllSalles)
         .post(salles.createSalle);
 
+    /*app.route('/salles/:date')
+        .get(salles.getSallesDisposByDate);*/
+
+    app.route('/salles/dispoNow')
+        .get(salles.getSallesDisposNow);
+
     app.route('/salles/:idSalle')
         .get(salles.getInfoSalle)
         .put(salles.updateSalle)
