@@ -94,12 +94,13 @@ exports.getUsersByType = function(req, res) {
 };
 
 exports.accesSalle = function(req, res) {
-    var requete = "SELECT * " +
+    var requete = "SELECT reservation.id_user " +
         "FROM reservation " +
         "JOIN validation ON (reservation.id_validation = validation.id_validation) " +
         "WHERE validation.etat = 1 " +
-        "AND reservation.id_user = " + req.params.idUser +
-        " AND reservation.id_salle = " + req.params.idSalle +
+        "AND (reservation.id_user = " + req.params.idUser +
+        " OR reservation.id_prof = " + req.params.idUser +
+        ") AND reservation.id_salle = " + req.params.idSalle +
         " AND reservation.date = DATE(NOW()) " +
         "AND reservation.heure_debut <= TIME(NOW()) " +
         "AND reservation.heure_fin >= TIME(NOW())";
