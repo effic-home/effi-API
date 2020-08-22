@@ -12,6 +12,6 @@ module.exports = function(app) {
   app.route('/users/type/:idType')
   .get(users.getUsersByType);
 
-  app.route('/acces/:idSalle/:idUser')
+  app.route('/acces/:idSalle/:idPuce')
   .get(users.accesSalle);
 };

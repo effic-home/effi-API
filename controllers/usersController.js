@@ -93,17 +93,26 @@ exports.getUsersByType = function(req, res) {
     });
 };
 
+// Paramètres : id_salle, id_puce du user
+// Accès à la salle si la réservation a été validée, si l'étudiant qui bipe est celui qui a réservé, ou si c'est le prof qui est prévu dans le cours qui bipe à la bonne salle à l'heure et date actuelles
+// Ou si c'est un admin
 exports.accesSalle = function(req, res) {
-    var requete = "SELECT reservation.id_user " +
+    var requete = "SELECT users.id_puce " +
         "FROM reservation " +
         "JOIN validation ON (reservation.id_validation = validation.id_validation) " +
+        "JOIN users ON (users.id_user = reservation.id_user) " +
+        "LEFT JOIN users as prof ON (prof.id_user = reservation.id_prof) " +
         "WHERE validation.etat = 1 " +
-        "AND (reservation.id_user = " + req.params.idUser +
-        " OR reservation.id_prof = " + req.params.idUser +
-        ") AND reservation.id_salle = " + req.params.idSalle +
-        " AND reservation.date = DATE(NOW()) " +
-        "AND reservation.heure_debut <= TIME(NOW()) " +
-        "AND reservation.heure_fin >= TIME(NOW())";
+            "AND (users.id_puce = '" + req.params.idPuce + "'" +
+                " OR prof.id_puce = '" + req.params.idPuce + "'" +
+            ") AND reservation.id_salle = " + req.params.idSalle +
+            " AND reservation.date = DATE(NOW()) " +
+            "AND reservation.heure_debut <= TIME(NOW()) " +
+            "AND reservation.heure_fin >= TIME(NOW())" +
+        "UNION " +
+        "SELECT id_puce FROM users " +
+        "JOIN type ON (users.id_type = type.id_type) " +
+        "WHERE type.nom = 'Admin' AND id_puce = '" + req.params.idPuce + "'";
 
     sql.query(requete, function (error, results) {
         if(error) {
