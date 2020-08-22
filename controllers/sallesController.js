@@ -18,7 +18,8 @@ exports.getAllSalles = function(req, res) {
 };
 
 exports.createSalle = function(req, res) {
-    var requete = "INSERT INTO salle SET ?";
+    var requete = "INSERT INTO salle SET ?;" +
+        "INSERT INTO acces_salles SET id_salle = (SELECT LAST_INSERT_ID()), id_type = (SELECT id_type FROM type WHERE nom = 'Admin')";
 
     sql.query(requete, req.body, function (error, results) {
         if(error) {
@@ -48,7 +49,7 @@ exports.getSallesDisposNow = function(req, res) {
             console.log("error: ", error);
             res.status(400).send(error);
         } else {
-            if(results.affectedRows == 0) {
+            if(results  == "") {
                 res.status(500).send({ error:true, message: "Sorry there are no available rooms now" });
             } else {
                 res.status(200).send(results);
