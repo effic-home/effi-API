@@ -261,7 +261,11 @@ GET http://localhost:10000/validations/user/1
 GET http://localhost:10000/validations/status/1
 
 ### GET Accès aux salles selon validation
-GET http://localhost:10000/acces/1/2
+# Tests locaux
+# Etudiant : 121235489
+# Prof : 23
+# Admin : 2687A000
+GET http://localhost:10000/acces/1/121235489
 
 ### GET Salles dispo actuellement
 GET http://localhost:10000/salles/dispoNow

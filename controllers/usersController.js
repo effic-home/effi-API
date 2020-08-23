@@ -97,20 +97,21 @@ exports.getUsersByType = function(req, res) {
 // Accès à la salle si la réservation a été validée, si l'étudiant qui bipe est celui qui a réservé, ou si c'est le prof qui est prévu dans le cours qui bipe à la bonne salle à l'heure et date actuelles
 // Ou si c'est un admin
 exports.accesSalle = function(req, res) {
-    var requete = "SELECT users.id_puce " +
+    var requete = "SELECT type.nom as type " +
         "FROM reservation " +
         "JOIN validation ON (reservation.id_validation = validation.id_validation) " +
         "JOIN users ON (users.id_user = reservation.id_user) " +
         "LEFT JOIN users as prof ON (prof.id_user = reservation.id_prof) " +
+        "LEFT JOIN type ON (type.id_type = prof.id_type) " +
         "WHERE validation.etat = 1 " +
             "AND (users.id_puce = '" + req.params.idPuce + "'" +
                 " OR prof.id_puce = '" + req.params.idPuce + "'" +
             ") AND reservation.id_salle = " + req.params.idSalle +
             " AND reservation.date = DATE(NOW()) " +
             "AND reservation.heure_debut <= TIME(NOW()) " +
-            "AND reservation.heure_fin >= TIME(NOW())" +
+            "AND reservation.heure_fin >= TIME(NOW()) " +
         "UNION " +
-        "SELECT id_puce FROM users " +
+        "SELECT type.nom as type FROM users " +
         "JOIN type ON (users.id_type = type.id_type) " +
         "WHERE type.nom = 'Admin' AND id_puce = '" + req.params.idPuce + "'";
 
@@ -122,7 +123,8 @@ exports.accesSalle = function(req, res) {
             if(results == "") {
                 res.status(500).send({result: false});
             } else {
-                res.status(200).send({result: true});
+                var type = results[0]["type"];
+                res.status(200).send({result: true, type});
             }
         }
     });
